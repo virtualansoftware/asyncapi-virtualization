@@ -1,0 +1,10 @@
+{
+  "MQTT" : [
+    {
+      "systemName": "Virtualan-MQTT-1",
+      "broker-url" : ["ssl://ed77617de471420c8f0bf54c661aacae.s2.eu.hivemq.cloud:8883"],
+      "username": "virtualan",
+      "password" :"Password1",
+      "receiver-queue": ["virtualan.input_1", "virtualan.input_2", "virtualan.input_3"]
+    } ]
+}
