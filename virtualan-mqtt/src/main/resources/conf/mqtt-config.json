@@ -5,6 +5,13 @@
       "broker-url" : ["ssl://ed77617de471420c8f0bf54c661aacae.s2.eu.hivemq.cloud:8883"],
       "username": "virtualan",
       "password" :"Password1",
-      "receiver-queue": ["virtualan.input_1", "virtualan.input_2", "virtualan.input_3"]
+      "receiver-queue": ["virtualan.input_1", "virtualan.input_2", "virtualan.input_3"],
+      "qos" : 2,
+      "completionTimeout": 5000,
+      "cleanSession" : true,
+      "automaticReconnect" : true,
+      "connectionTimeout" : 100,
+      "keepAliveInterval" : 60
+
     } ]
 }
