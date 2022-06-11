@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
     glue = {"io.virtualan.cucumblan.core"},
     plugin = {"pretty",
         "io.virtualan.cucumblan.props.hook.FeatureScope",
-        "json:target/cucumber-report.json",
+        "json:target/cucumber/cucumber-report.json",
         "html:target/cucumber-reports.html" })
 
 public class KafkaMessageTest {
