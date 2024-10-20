@@ -46,30 +46,15 @@ public class Kafka2SpringBoot {
         private int zkPort;
 
         @Bean
-//        public EmbeddedKafkaBroker broker() throws IOException {
-//            ServerSocket ss = ServerSocketFactory.getDefault().createServerSocket(9092);
-//            this.kafkaPort = ss.getLocalPort();
-//            ss.close();
-//
-//            EmbeddedKafkaBroker embeddedKafkaBroker = new EmbeddedKafkaBroker(1, false) ;
-//            embeddedKafkaBroker.kafkaPorts(this.kafkaPort);
-//            //embeddedKafkaBroker.brokerProperty("log.dir", "target/kafka-logs");
-//            return embeddedKafkaBroker;
-//
-//        }
 
         EmbeddedKafkaBroker broker() throws IOException {
             Map<String, String> properties = new HashMap<>();
-//            properties.put("listeners", "PLAINTEXT://localhost:9092");
-//            properties.put("advertised.listeners", "PLAINTEXT://localhost:9092");
-//            properties.put("listener.security.protocol.map", "PLAINTEXT:PLAINTEXT");
             ServerSocket ss = ServerSocketFactory.getDefault().createServerSocket(9092);
             this.kafkaPort = ss.getLocalPort();
             ss.close();
               return new EmbeddedKafkaZKBroker(1)
                     .kafkaPorts(kafkaPort)
                     .brokerProperties(properties);
-//                    .brokerListProperty("spring.kafka.bootstrap-servers");
         }
     }
 
