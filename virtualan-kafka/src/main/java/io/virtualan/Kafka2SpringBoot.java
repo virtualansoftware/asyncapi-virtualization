@@ -2,6 +2,8 @@ package io.virtualan;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.HashMap;
+import java.util.Map;
 import javax.net.ServerSocketFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
+import org.springframework.kafka.test.EmbeddedKafkaZKBroker;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import io.virtualan.message.core.MessagingApplication;
 
@@ -43,18 +46,31 @@ public class Kafka2SpringBoot {
         private int zkPort;
 
         @Bean
-        public EmbeddedKafkaBroker broker() throws IOException {
+//        public EmbeddedKafkaBroker broker() throws IOException {
+//            ServerSocket ss = ServerSocketFactory.getDefault().createServerSocket(9092);
+//            this.kafkaPort = ss.getLocalPort();
+//            ss.close();
+//
+//            EmbeddedKafkaBroker embeddedKafkaBroker = new EmbeddedKafkaBroker(1, false) ;
+//            embeddedKafkaBroker.kafkaPorts(this.kafkaPort);
+//            //embeddedKafkaBroker.brokerProperty("log.dir", "target/kafka-logs");
+//            return embeddedKafkaBroker;
+//
+//        }
+
+        EmbeddedKafkaBroker broker() throws IOException {
+            Map<String, String> properties = new HashMap<>();
+//            properties.put("listeners", "PLAINTEXT://localhost:9092");
+//            properties.put("advertised.listeners", "PLAINTEXT://localhost:9092");
+//            properties.put("listener.security.protocol.map", "PLAINTEXT:PLAINTEXT");
             ServerSocket ss = ServerSocketFactory.getDefault().createServerSocket(9092);
             this.kafkaPort = ss.getLocalPort();
             ss.close();
-
-            EmbeddedKafkaBroker embeddedKafkaBroker = new EmbeddedKafkaBroker(1, false) ;
-            embeddedKafkaBroker.kafkaPorts(this.kafkaPort);
-            embeddedKafkaBroker.brokerProperty("log.dir", "target/kafka-logs");
-            return embeddedKafkaBroker;
-
+              return new EmbeddedKafkaZKBroker(1)
+                    .kafkaPorts(kafkaPort)
+                    .brokerProperties(properties);
+//                    .brokerListProperty("spring.kafka.bootstrap-servers");
         }
-
     }
 
 }
